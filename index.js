@@ -1,10 +1,12 @@
 const { mssqlChecker } = require('./checkers/mssql-checker');
 const { redisChecker } = require('./checkers/redis-checker');
 const { mongoChecker } = require('./checkers/mongo-checker');
+const { rabbitmqChecker } = require('./checkers/rabbitmq-checker');
+
 const { teamLog } = require('./utils/team-log');
 const config = require('./config');
 
-const checkers = [mssqlChecker, redisChecker, mongoChecker];
+const checkers = [mssqlChecker, redisChecker, mongoChecker, rabbitmqChecker];
 
 async function loop() {
     const executions = checkers.map(checker => {

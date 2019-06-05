@@ -7,4 +7,5 @@ module.exports = {
     INTERVAL: process.env.INTERVAL,
     REDIS_URL: process.env.REDIS_URL,
     MONGO_URL: process.env.MONGO_URL,
+    RABBITMQ_URL: process.env.RABBITMQ_URL,
 };

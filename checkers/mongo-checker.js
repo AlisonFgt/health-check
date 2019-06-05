@@ -6,8 +6,10 @@ const mongoChecker = {
     check: (config) => {
         return new Promise((res, rej) => {
             mongoose.connect(config.MONGO_URL, { useNewUrlParser: true }, function(err) {
-                if (err) return rej(err);
-                res();
+                if (err) 
+                    rej(err);
+                else 
+                    res();
             });
         });
     }
