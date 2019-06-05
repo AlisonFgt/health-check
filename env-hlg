@@ -1,0 +1,5 @@
+MSSQL_CONNECTION_STRING=mssql://sistema.Services:******2-54-04.07.sa-east-1.compute.amazonaws.com/sistema.DataService
+WEBHOOK_URL_TEAMS=https://outlook.office.com/webhook/580f5783-18b2-4cfc-821c-789ae3e52ef7@80da1fca-0e59-41fa-8e47-f4faa3e1324d/IncomingWebhook/f0467516629647fa9c9c97026c36485f/c7a13ecf-917a-4e81-889e-f048aaa5e363
+INTERVAL=60
+REDIS_URL=redis://prdredis.sistema.com:6379
+MONGO_URL=mongodb://admin:root@localhost:27017/admin
