@@ -1,0 +1,26 @@
+{
+  "name": "health_check",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlisonFgt/health_check.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlisonFgt/health_check/issues"
+  },
+  "homepage": "https://github.com/AlisonFgt/health_check#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.0.0",
+    "mssql": "^5.1.0",
+    "redis": "^2.8.0"
+  }
+}
