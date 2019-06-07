@@ -5,7 +5,7 @@ function teamLog(name, error, imageUrl, webHookUrl){
             themeColor: "F00",
             summary: error,
             sections: [{
-                activityTitle: "Failured " + name,
+                activityTitle: "Failure " + name,
                 activitySubtitle: error,
                 activityImage: imageUrl,
                 markdown: true

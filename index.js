@@ -1,4 +1,5 @@
 const { mssqlChecker } = require('./checkers/mssql-checker');
+const { mssqlDataServiceChecker } = require('./checkers/mssql-checker');
 const { redisChecker } = require('./checkers/redis-checker');
 const { mongoChecker } = require('./checkers/mongo-checker');
 const { rabbitmqChecker } = require('./checkers/rabbitmq-checker');
@@ -8,11 +9,16 @@ const config = require('./config');
 
 const checkers = [mssqlChecker, redisChecker, mongoChecker, rabbitmqChecker];
 
+// test's TradeForce
+const checkersTradeForce = [mssqlDataServiceChecker];
+
+checkers.concat(checkersTradeForce);
+
 async function loop() {
     const executions = checkers.map(checker => {
         return checker.check(config)
             .then(() => {
-                console.log(checker.name + ' success!');
+                console.log(new Date() + ' - ' + checker.name + ' success!');
             }) 
             .catch(err => {
                 console.log(err);
