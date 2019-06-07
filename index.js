@@ -7,12 +7,12 @@ const { rabbitmqChecker } = require('./checkers/rabbitmq-checker');
 const { teamLog } = require('./utils/team-log');
 const config = require('./config');
 
-const checkers = [mssqlChecker, redisChecker, mongoChecker, rabbitmqChecker];
+//const checkers = [mssqlChecker, redisChecker, mongoChecker, rabbitmqChecker];
 
 // test's TradeForce
-const checkersTradeForce = [mssqlDataServiceChecker];
+const checkers = [mssqlDataServiceChecker];
 
-checkers.concat(checkersTradeForce);
+//checkers.concat(checkersTradeForce);
 
 async function loop() {
     const executions = checkers.map(checker => {
