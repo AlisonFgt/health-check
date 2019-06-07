@@ -1,18 +1,23 @@
-const { mssqlChecker } = require('./checkers/mssql-checker');
-const { mssqlDataServiceChecker } = require('./checkers/mssql-checker');
+const {
+    mssqlChecker, 
+    mssqlDataServiceChecker
+} = require('./checkers/mssql-checker');
 const { redisChecker } = require('./checkers/redis-checker');
 const { mongoChecker } = require('./checkers/mongo-checker');
 const { rabbitmqChecker } = require('./checkers/rabbitmq-checker');
 
 const { teamLog } = require('./utils/team-log');
+
 const config = require('./config');
 
-//const checkers = [mssqlChecker, redisChecker, mongoChecker, rabbitmqChecker];
+// test's services
+const checkers = [mssqlChecker, redisChecker, mongoChecker, rabbitmqChecker];
 
 // test's TradeForce
-const checkers = [mssqlDataServiceChecker];
+const checkersTradeForce = [mssqlDataServiceChecker];
 
-//checkers.concat(checkersTradeForce);
+// join all test's
+checkers.push(...checkersTradeForce);
 
 async function loop() {
     const executions = checkers.map(checker => {
@@ -22,7 +27,7 @@ async function loop() {
             }) 
             .catch(err => {
                 console.log(err);
-                teamLog(checker.name, err.message, checker.imageUrl, config.WEBHOOK_URL_TEAMS);
+                //teamLog(checker.name, err.message, checker.imageUrl, config.WEBHOOK_URL_TEAMS);
             })
     });
 

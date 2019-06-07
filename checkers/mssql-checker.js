@@ -18,19 +18,13 @@ const mssqlChecker = {
 
 // Test TradeForce Data Service
 const mssqlDataServiceChecker = {
-    name : 'Data Service Account Login Checker',
+    name : 'Data Services Accounts Test',
     imageUrl: _imageUrl,
     check: async (config) => {
         try {
             let result = await getInstances(config);
-            
             await Promise.all(result.recordset.map(async (instance) => {
-                const conn = new mssql.ConnectionPool({
-                    user: instance.Username,
-                    password: instance.Password,
-                    server: instance.Server,
-                    database: instance.DatabaseName
-                });
+                const conn = createdConnection(instance);
                 try {
                     await conn.connect();
                 } catch (err) {
@@ -43,6 +37,15 @@ const mssqlDataServiceChecker = {
             throw err;
         }
     }
+}
+
+function createdConnection(instance) {
+    return new mssql.ConnectionPool({
+        user: instance.Username,
+        password: instance.Password,
+        server: instance.Server,
+        database: instance.DatabaseName
+    });
 }
 
 async function getInstances(config) {
@@ -58,8 +61,24 @@ async function getInstances(config) {
                     AND Production = 1`);
 }
 
+async function getUserTradeForce(config) {
+    instances = await getInstances(config);
+    const instance = instances.recordset[0];
+    const conn = createdConnection(instance);
+    try {
+        await conn.connect();
+        return await conn.request()
+            .query(`SELECT * FROM usuario WHERE login = 'system'`);
+    } catch (err) {
+        throw new Error(instance.DatabaseName + ': ' + err.message);
+    } finally {
+        conn.close();
+    }  
+}
+
 module.exports = {
     mssqlChecker,
     mssqlDataServiceChecker,
     getInstances,
+    getUserTradeForce
 };

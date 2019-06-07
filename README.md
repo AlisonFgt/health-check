@@ -1,5 +1,7 @@
 # Health Check
 
+<img src="health_check.png" width="120">
+
 This project monitors some services and infrastructures of our environment, notifying in case of any problems via Teams, Slack or email as configured.
 
 ## Used Tecnologies
