@@ -1,4 +1,7 @@
-const { getInstances } = require('./checkers/mssql-checker');
+const { 
+    getOneInstanceNameActive,
+    getOneUserTradeForce
+ } = require('./checkers/mssql-checker');
 const axios = require('axios');
 const crypto = require('crypto-js');
 
@@ -10,7 +13,11 @@ function enc(key) {
     return crypto.AES.encrypt(key, "V@m05 Pr@ C1m@!").toString(); 
 }
 
-function testAuthService(name, error, imageUrl, webHookUrl){
+function testAuthService(config){
+    const instanceName = await getOneInstanceNameActive(config);
+    const TFSecretKey = enc(instanceName +':PORTAL');
+    const user = await getOneUserTradeForce(config);
+    const Authorization = 'basic ' + 'encondebase64';
     axios.post(webHookUrl, {
             themeColor: "F00",
             summary: error,

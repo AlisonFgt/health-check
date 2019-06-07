@@ -61,7 +61,20 @@ async function getInstances(config) {
                     AND Production = 1`);
 }
 
-async function getUserTradeForce(config) {
+async function getOneInstanceNameActive(config) {
+    const mssqlConn = new mssql.ConnectionPool(config.MSSQL_CONNECTION_STRING);
+    await mssqlConn.connect();
+    return await mssqlConn.request()
+        .query(`SELECT TOP 1
+                    Name 
+                FROM 
+                    Instance
+                WHERE
+                    Active = 1
+                    AND Production = 1`);
+}
+
+async function getOneUserTradeForce(config) {
     instances = await getInstances(config);
     const instance = instances.recordset[0];
     const conn = createdConnection(instance);
@@ -80,5 +93,6 @@ module.exports = {
     mssqlChecker,
     mssqlDataServiceChecker,
     getInstances,
-    getUserTradeForce
+    getOneUserTradeForce,
+    getOneInstanceNameActive
 };

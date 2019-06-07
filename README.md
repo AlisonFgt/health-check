@@ -10,15 +10,14 @@ This project monitors some services and infrastructures of our environment, noti
 
 ## Project Setup
 
-Download .NET core: 
-https://dotnet.microsoft.com/download/dotnet-core/2.2
+Installing Npm: https://www.npmjs.com/get-npm
 
-Python Setup: https://www.python.org/downloads/
-
-Installing Pip: https://github.com/pypa/pip
-
-Installing tableau sdk: https://downloads.tableau.com/tssoftware/Tableau-SDK-Python-Win-64Bit-10-3-17.zip
-
+Health Check Setup: 
+   * In folder the project run command npm install --save
+   * Configuration the .env file to run local
+   * Configuration the docker-compose.yml to run in Server Docker
+   * Run local, execute command Node index.js
+   * Run Docker, docker-compose up --build
 
 ## Creating configuration
 
