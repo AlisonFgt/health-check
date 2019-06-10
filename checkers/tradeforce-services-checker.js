@@ -1,7 +1,3 @@
-const { 
-    getOneInstanceNameActive,
-    getOneUserTradeForce
- } = require('./checkers/mssql-checker');
 const axios = require('axios');
 const crypto = require('crypto-js');
 
@@ -13,31 +9,33 @@ function enc(key) {
     return crypto.AES.encrypt(key, "V@m05 Pr@ C1m@!").toString(); 
 }
 
-function testAuthService(config){
-    const instanceName = await getOneInstanceNameActive(config);
-    const TFSecretKey = enc(instanceName +':PORTAL');
-    const user = await getOneUserTradeForce(config);
-    const Authorization = 'basic ' + 'encondebase64';
-    axios.post(webHookUrl, {
-            themeColor: "F00",
-            summary: error,
-            sections: [{
-                activityTitle: "Failure " + name,
-                activitySubtitle: error,
-                activityImage: imageUrl,
-                markdown: true
-            }]
+const tradeAuthService = {
+    name: 'Tradeforce Auth Service Test',
+    imageUrl: 'https://pbs.twimg.com/profile_images/671401267969806336/ZsMonZXr_400x400.png',
+    check: (config) => {
+        try {
+            return new Promise(async (res, rej) => {
+                const instanceName = config.INSTANCE_TRADEFORCE;
+                const tFSecretKey = enc(instanceName +':PORTAL');
+                let authorization = 'basic ' + Buffer.from(config.USER_TRADEFORCE + ':' + config.PASSWORD_TRADEFORCE).toString('base64');
+                axios.post(config.AUTH_SERVICE_URL, {}, { 
+                        headers: {
+                            'TF-Secret-Key': tFSecretKey, 
+                            'Authorization': authorization 
+                        }
+                    }
+                    ).then(function (response) {
+                        res(response);
+                    }).catch(function (err) {
+                        rej(err);
+                    });
+                });
+        } catch (err) {
+            throw err;
         }
-    )
-    .then(function (res) {
-        console.log(res);
-    })
-    .catch(function (err) {
-        console.log(err);
-        throw err
-    });
+    }
 }
 
 module.exports = {
-    testAuthService,
+    tradeAuthService,
 }

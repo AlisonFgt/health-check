@@ -5,6 +5,7 @@ const {
 const { redisChecker } = require('./checkers/redis-checker');
 const { mongoChecker } = require('./checkers/mongo-checker');
 const { rabbitmqChecker } = require('./checkers/rabbitmq-checker');
+const { tradeAuthService } = require('./checkers/tradeforce-services-checker');
 
 const { teamLog } = require('./utils/team-log');
 
@@ -14,7 +15,7 @@ const config = require('./config');
 const checkers = [mssqlChecker, redisChecker, mongoChecker, rabbitmqChecker];
 
 // test's TradeForce
-const checkersTradeForce = [mssqlDataServiceChecker];
+const checkersTradeForce = [mssqlDataServiceChecker, tradeAuthService];
 
 // join all test's
 checkers.push(...checkersTradeForce);
@@ -27,7 +28,7 @@ async function loop() {
             }) 
             .catch(err => {
                 console.log(err);
-                //teamLog(checker.name, err.message, checker.imageUrl, config.WEBHOOK_URL_TEAMS);
+                teamLog(checker.name, err.message, checker.imageUrl, config.WEBHOOK_URL_TEAMS);
             })
     });
 

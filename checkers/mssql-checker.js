@@ -64,7 +64,7 @@ async function getInstances(config) {
 async function getOneInstanceNameActive(config) {
     const mssqlConn = new mssql.ConnectionPool(config.MSSQL_CONNECTION_STRING);
     await mssqlConn.connect();
-    return await mssqlConn.request()
+    const instancia = await mssqlConn.request()
         .query(`SELECT TOP 1
                     Name 
                 FROM 
@@ -72,6 +72,7 @@ async function getOneInstanceNameActive(config) {
                 WHERE
                     Active = 1
                     AND Production = 1`);
+    return instancia.recordset[0].Name;
 }
 
 async function getOneUserTradeForce(config) {
@@ -80,8 +81,9 @@ async function getOneUserTradeForce(config) {
     const conn = createdConnection(instance);
     try {
         await conn.connect();
-        return await conn.request()
+        const user = await conn.request()
             .query(`SELECT * FROM usuario WHERE login = 'system'`);
+        return user.recordset[0];
     } catch (err) {
         throw new Error(instance.DatabaseName + ': ' + err.message);
     } finally {
