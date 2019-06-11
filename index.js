@@ -18,7 +18,8 @@ const checkers = [mssqlChecker, redisChecker, mongoChecker, rabbitmqChecker];
 const checkersTradeForce = [mssqlDataServiceChecker, tradeAuthService];
 
 // join all test's
-checkers.push(...checkersTradeForce);
+if (!config.DEV_MODE)
+    checkers.push(...checkersTradeForce);
 
 async function loop() {
     const executions = checkers.map(checker => {

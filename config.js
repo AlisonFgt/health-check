@@ -12,4 +12,5 @@ module.exports = {
     USER_TRADEFORCE: process.env.USER_TRADEFORCE,
     PASSWORD_TRADEFORCE: process.env.PASSWORD_TRADEFORCE,
     INSTANCE_TRADEFORCE: process.env.INSTANCE_TRADEFORCE,
+    DEV_MODE: process.env.DEV_MODE == 'TRUE',
 };
