@@ -1,0 +1,17 @@
+version: "3.2"
+
+services:
+  health-checker:
+    build: .
+    environment:
+      MSSQL_CONNECTION_STRING: "mssql://user:password@host/dbname"
+      WEBHOOK_URL_TEAMS: "https://outlook.office.com/webhook/...."
+      INTERVAL: 60 # minutes
+      REDIS_URL: "redis://url:port"
+      MONGO_URL: "mongodb://user:password@host:port/dbname"
+      RABBITMQ_URL: "amqp://user:password@host/queue"
+      AUTH_SERVICE_URL: "http://www.seu-microservico.com.br/tokens"
+      USER_TRADEFORCE: "admin"
+      PASSWORD_TRADEFORCE: "*****"
+      INSTANCE_TRADEFORCE: "COMERCIAL"
+      DEV_MODE: "TRUE"

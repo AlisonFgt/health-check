@@ -2,3 +2,4 @@
 .env
 /.vscode
 docker-compose.yml
+log.txt
