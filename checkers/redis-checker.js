@@ -8,6 +8,7 @@ const redisChecker = {
             client = redis.createClient(config.REDIS_URL);
             client.on("error", rej);
             client.on("connect", res);
+            client.quit();
         });
     }
 }

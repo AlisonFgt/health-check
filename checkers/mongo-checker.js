@@ -10,6 +10,7 @@ const mongoChecker = {
                     rej(err);
                 else 
                     res();
+                    mongoose.connection.close();
             });
         });
     }

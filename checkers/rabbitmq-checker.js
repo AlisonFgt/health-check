@@ -8,8 +8,10 @@ const rabbitmqChecker = {
             amqplib.connect(config.RABBITMQ_URL, (err, conn) => {
                 if (err)
                     rej(err);
-                else
+                else {
                     res();
+                    conn.close();
+                }
             });
         });
     }

@@ -32,10 +32,10 @@ const mssqlDataServiceChecker = {
                 } finally {
                     conn.close();
                 }                                        
-            }));                           
+            }));  
         } catch (err) {
             throw err;
-        }
+        }                         
     }
 }
 
@@ -49,30 +49,46 @@ function createdConnection(instance) {
 }
 
 async function getInstances(config) {
-    const mssqlConn = new mssql.ConnectionPool(config.MSSQL_CONNECTION_STRING);
-    await mssqlConn.connect();
-    return await mssqlConn.request()
-        .query(`SELECT 
-                    * 
-                FROM 
-                    Instance
-                WHERE
-                    Active = 1
-                    AND Production = 1`);
+    let result; 
+    try {
+        const mssqlConn = new mssql.ConnectionPool(config.MSSQL_CONNECTION_STRING);
+        await mssqlConn.connect();
+        result = await mssqlConn.request()
+            .query(`SELECT 
+                        * 
+                    FROM 
+                        Instance
+                    WHERE
+                        Active = 1
+                        AND Production = 1`);
+    } catch (err) {
+        throw err;
+    } finally {
+        mssql.close();
+    }
+    return result;
 }
 
 async function getOneInstanceNameActive(config) {
-    const mssqlConn = new mssql.ConnectionPool(config.MSSQL_CONNECTION_STRING);
-    await mssqlConn.connect();
-    const instancia = await mssqlConn.request()
-        .query(`SELECT TOP 1
-                    Name 
-                FROM 
-                    Instance
-                WHERE
-                    Active = 1
-                    AND Production = 1`);
-    return instancia.recordset[0].Name;
+    let result; 
+    try {
+        const mssqlConn = new mssql.ConnectionPool(config.MSSQL_CONNECTION_STRING);
+        await mssqlConn.connect();
+        const instancia = await mssqlConn.request()
+            .query(`SELECT TOP 1
+                        Name 
+                    FROM 
+                        Instance
+                    WHERE
+                        Active = 1
+                        AND Production = 1`);
+        result = instancia.recordset[0].Name;
+    } catch (err) {
+        throw err;
+    } finally {
+        mssqlConn.close();
+    }
+    return result;
 }
 
 async function getOneUserTradeForce(config) {
@@ -86,9 +102,7 @@ async function getOneUserTradeForce(config) {
         return user.recordset[0];
     } catch (err) {
         throw new Error(instance.DatabaseName + ': ' + err.message);
-    } finally {
-        conn.close();
-    }  
+    }
 }
 
 module.exports = {
