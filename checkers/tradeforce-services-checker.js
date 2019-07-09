@@ -11,6 +11,7 @@ function enc(key) {
 
 const tradeAuthService = {
     name: 'Tradeforce Auth Service Test',
+    cron: '0 * * * *',
     imageUrl: 'https://pbs.twimg.com/profile_images/671401267969806336/ZsMonZXr_400x400.png',
     check: (config) => {
         try {

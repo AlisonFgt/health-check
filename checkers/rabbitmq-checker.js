@@ -2,6 +2,7 @@ const amqplib = require("amqplib/callback_api");
 
 const rabbitmqChecker = {
     name: 'RabbitMQ Test',
+    cron: '0 * * * *',
     imageUrl: 'https://cloud.intuz.com/applications/rabbitmq/aws/images/rabbitmq_logo.png',
     check: (config) => {
         return new Promise((res, rej) => {

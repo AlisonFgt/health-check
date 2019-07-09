@@ -4,6 +4,7 @@ const _imageUrl = 'http://nsi.com.br/wp/wp-content/uploads/2017/04/curso_sql_ser
 
 const mssqlChecker = {
     name: 'SQL Server Test',
+    cron: '0 * * * *',
     imageUrl: _imageUrl,
     check: async (config) => {
         try {
@@ -19,6 +20,7 @@ const mssqlChecker = {
 // Test TradeForce Data Service
 const mssqlDataServiceChecker = {
     name : 'Data Services Accounts Test',
+    cron: '0 * * * *',
     imageUrl: _imageUrl,
     check: async (config) => {
         try {

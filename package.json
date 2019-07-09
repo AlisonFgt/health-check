@@ -25,6 +25,7 @@
     "fs": "0.0.1-security",
     "mongoose": "^5.5.12",
     "mssql": "^5.1.0",
+    "node-cron": "^2.0.3",
     "redis": "^2.8.0"
   }
 }
