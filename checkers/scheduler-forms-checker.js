@@ -80,10 +80,28 @@ const schedulerForms = {
     }
 }        
 
+function createConnection(connection) {
+    connection = connection.replace('mssql://','');
+    const user = connection.split(':')[0];
+    connection = connection.replace(user + ':', '');
+    const pass = connection.split('@e')[0];
+    connection = connection.replace(pass + '@','');
+    const server = connection.split('/')[0];
+    const dataBase = connection.split('/')[1];
+    return new mssql.ConnectionPool({
+        user: user,
+        password: pass,
+        database: dataBase,
+        server: server,
+        connectionTimeout: 300000,
+        requestTimeout: 300000
+    })
+}
+
 async function getFormsFails(config) {
     let result; 
     try {
-        const mssqlConn = new mssql.ConnectionPool(config.MSSQL_CONNECTION_STRING);
+        const mssqlConn = createConnection(config.MSSQL_CONNECTION_STRING);
         await mssqlConn.connect();
         result = await mssqlConn.request()
             .query(query);
@@ -98,7 +116,7 @@ async function getFormsFails(config) {
 async function getFormsFailsServer121(config) {
     let result; 
     try {
-        const mssqlConn = new mssql.ConnectionPool(config.MSSQL_CONNECTION_STRING_121);
+        const mssqlConn = createConnection(config.MSSQL_CONNECTION_STRING_121);
         await mssqlConn.connect();
         result = await mssqlConn.request()
             .query(query);
